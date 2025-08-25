@@ -35,34 +35,35 @@ export const AppSidebar = () => {
     <aside 
       className={cn(
         "bg-card border-r border-border flex flex-col transition-all duration-normal",
+        "hidden md:flex", // Hide on mobile
         collapsed ? "w-sidebar-collapsed" : "w-sidebar"
       )}
     >
       {/* Toggle Button */}
-      <div className="p-4 border-b border-border">
+      <div className="p-2 border-b border-border">
         <Button
           variant="ghost"
           size="sm"
           onClick={() => setCollapsed(!collapsed)}
-          className="w-full justify-center"
+          className="w-full justify-center h-8"
         >
-          {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
         </Button>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
-        <ul className="space-y-2">
+      <nav className="flex-1 p-2">
+        <ul className="space-y-1">
           {navigationItems.map((item) => (
             <li key={item.title}>
               <NavLink
                 to={item.disabled ? "#" : item.url}
                 className={({ isActive: navIsActive }) =>
                   cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                    "flex items-center gap-2 px-2 py-2 rounded text-sm transition-colors",
                     "hover:bg-accent hover:text-accent-foreground",
                     (navIsActive || isActive(item.url)) && !item.disabled
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-primary text-primary-foreground font-medium"
                       : "text-muted-foreground",
                     item.disabled && "opacity-50 cursor-not-allowed",
                     collapsed && "justify-center px-2"
@@ -71,7 +72,7 @@ export const AppSidebar = () => {
                 onClick={(e) => item.disabled && e.preventDefault()}
               >
                 <item.icon className="w-4 h-4 flex-shrink-0" />
-                {!collapsed && <span>{item.title}</span>}
+                {!collapsed && <span className="truncate">{item.title}</span>}
               </NavLink>
             </li>
           ))}

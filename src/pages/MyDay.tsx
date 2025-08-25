@@ -82,226 +82,203 @@ export default function MyDay() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <AppHeader />
       
       <div className="flex flex-1 overflow-hidden">
         <AppSidebar />
         
-        <main className="flex-1 flex gap-6 p-6 overflow-auto">
-          {/* Queue - Left Column */}
-          <div className="w-80 flex-shrink-0">
-            <Card className="h-full">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">Patient Queue</CardTitle>
-                  <Badge variant="secondary" className="bg-primary-light text-primary">
-                    {patientQueue.length} waiting
-                  </Badge>
-                </div>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder="Search patients..."
-                    className="pl-10"
-                  />
-                </div>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="space-y-1 max-h-96 overflow-y-auto">
-                  {patientQueue.map((patient) => (
-                    <div
-                      key={patient.id}
-                      onClick={() => handlePatientSelect(patient.id)}
-                      className="p-4 hover:bg-accent cursor-pointer border-b border-border last:border-0 transition-colors"
-                    >
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium text-sm">{patient.tokenNumber}</span>
-                          <Badge variant="secondary" className={getPriorityColor(patient.priority)}>
-                            {patient.priority}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                          <Clock className="w-3 h-3" />
-                          <span className="text-xs">{patient.waitMin}m</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-3 mb-2">
-                        <Avatar className="w-8 h-8">
-                          <AvatarFallback className="text-xs">
-                            {patient.name.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="font-medium text-sm">{patient.name}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {patient.age}yr • {patient.sex}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <p className="text-sm text-muted-foreground mb-1">{patient.reason}</p>
-                      
-                      {patient.allergies.length > 0 && (
-                        <div className="flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3 text-danger" />
-                          <span className="text-xs text-danger">
-                            Allergic to: {patient.allergies.join(', ')}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+        <main className="flex-1 overflow-auto">
+          <div className="p-3 sm:p-4 lg:p-6">
+            {/* Header */}
+            <div className="mb-4">
+              <h2 className="text-xl font-bold mb-1">Good Morning, Dr. Smith</h2>
+              <p className="text-sm text-muted-foreground">Here's your day at a glance</p>
+            </div>
 
-          {/* Today Overview - Center Column */}
-          <div className="flex-1">
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-bold mb-2">Good Morning, Dr. Smith</h2>
-                <p className="text-muted-foreground">Here's your day at a glance</p>
-              </div>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-success-light rounded-lg flex items-center justify-center">
-                        <CheckCircle className="w-5 h-5 text-success" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{todayStats.patientsSeen}</p>
-                        <p className="text-xs text-muted-foreground">Patients Seen</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-info-light rounded-lg flex items-center justify-center">
-                        <Clock className="w-5 h-5 text-info" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{todayStats.avgConsultTime}</p>
-                        <p className="text-xs text-muted-foreground">Avg Consult Time</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-warning-light rounded-lg flex items-center justify-center">
-                        <TestTube className="w-5 h-5 text-warning" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{todayStats.pendingResults}</p>
-                        <p className="text-xs text-muted-foreground">Pending Results</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary-light rounded-lg flex items-center justify-center">
-                        <MessageSquare className="w-5 h-5 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold">{todayStats.messages}</p>
-                        <p className="text-xs text-muted-foreground">Messages/Tasks</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Recent Activity */}
+            {/* Stats Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
               <Card>
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                      <TestTube className="w-4 h-4 text-success" />
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">Lab results available for Priya Sharma</p>
-                        <p className="text-xs text-muted-foreground">2 minutes ago</p>
-                      </div>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-success-light rounded flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 text-success" />
                     </div>
-                    <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                      <Users className="w-4 h-4 text-info" />
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">Consultation completed for Rajesh Gupta</p>
-                        <p className="text-xs text-muted-foreground">15 minutes ago</p>
-                      </div>
+                    <div>
+                      <p className="text-lg font-bold">{todayStats.patientsSeen}</p>
+                      <p className="text-xs text-muted-foreground">Seen</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-info-light rounded flex items-center justify-center">
+                      <Clock className="w-4 h-4 text-info" />
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold">{todayStats.avgConsultTime}</p>
+                      <p className="text-xs text-muted-foreground">Avg Time</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-warning-light rounded flex items-center justify-center">
+                      <TestTube className="w-4 h-4 text-warning" />
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold">{todayStats.pendingResults}</p>
+                      <p className="text-xs text-muted-foreground">Pending</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-primary-light rounded flex items-center justify-center">
+                      <MessageSquare className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold">{todayStats.messages}</p>
+                      <p className="text-xs text-muted-foreground">Tasks</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
-          </div>
 
-          {/* Quick Actions - Right Column */}
-          <div className="w-80 flex-shrink-0">
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Button className="w-full justify-start gap-3" size="lg">
-                  <CreditCard className="w-4 h-4" />
-                  Open by ABHA/Card
-                </Button>
-                
-                <Button variant="outline" className="w-full justify-start gap-3" size="lg">
-                  <Search className="w-4 h-4" />
-                  Search Patient
-                </Button>
-                
-                <Button variant="outline" className="w-full justify-start gap-3" size="lg">
-                  <FileText className="w-4 h-4" />
-                  Create Note (No ID)
-                </Button>
-                
-                <Button variant="outline" className="w-full justify-start gap-3" size="lg">
-                  <UserPlus className="w-4 h-4" />
-                  Register New Patient
-                </Button>
-              </CardContent>
-            </Card>
+            <div className="grid lg:grid-cols-3 gap-4">
+              {/* Queue */}
+              <div className="lg:col-span-2">
+                <Card>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base">Patient Queue</CardTitle>
+                      <Badge variant="secondary" className="bg-primary-light text-primary text-xs">
+                        {patientQueue.length} waiting
+                      </Badge>
+                    </div>
+                    <div className="relative">
+                      <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground w-3 h-3" />
+                      <Input
+                        placeholder="Search patients..."
+                        className="pl-7 h-8 text-sm"
+                      />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="max-h-80 overflow-y-auto">
+                      {patientQueue.map((patient) => (
+                        <div
+                          key={patient.id}
+                          onClick={() => handlePatientSelect(patient.id)}
+                          className="p-3 hover:bg-accent cursor-pointer border-b border-border last:border-0 transition-colors"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium text-sm">{patient.tokenNumber}</span>
+                              <Badge variant="secondary" className={`${getPriorityColor(patient.priority)} text-xs`}>
+                                {patient.priority}
+                              </Badge>
+                            </div>
+                            <div className="flex items-center gap-1 text-muted-foreground">
+                              <Clock className="w-3 h-3" />
+                              <span className="text-xs">{patient.waitMin}m</span>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 mb-1">
+                            <Avatar className="w-6 h-6">
+                              <AvatarFallback className="text-xs">
+                                {patient.name.split(' ').map(n => n[0]).join('')}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-sm truncate">{patient.name}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {patient.age}yr • {patient.sex}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <p className="text-xs text-muted-foreground mb-1 truncate">{patient.reason}</p>
+                          
+                          {patient.allergies.length > 0 && (
+                            <div className="flex items-center gap-1">
+                              <AlertCircle className="w-3 h-3 text-danger" />
+                              <span className="text-xs text-danger truncate">
+                                Allergic to: {patient.allergies.join(', ')}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
 
-            {/* Shortcuts */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle className="text-base">Keyboard Shortcuts</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Search</span>
-                  <Badge variant="secondary" className="text-xs">Ctrl+K</Badge>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">New Note</span>
-                  <Badge variant="secondary" className="text-xs">Ctrl+N</Badge>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Next Patient</span>
-                  <Badge variant="secondary" className="text-xs">Ctrl+→</Badge>
-                </div>
-              </CardContent>
-            </Card>
+              {/* Quick Actions */}
+              <div>
+                <Card>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-base">Quick Actions</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <Button className="w-full justify-start gap-2 h-8 text-sm">
+                      <CreditCard className="w-3 h-3" />
+                      Open by ABHA/Card
+                    </Button>
+                    
+                    <Button variant="outline" className="w-full justify-start gap-2 h-8 text-sm">
+                      <Search className="w-3 h-3" />
+                      Search Patient
+                    </Button>
+                    
+                    <Button variant="outline" className="w-full justify-start gap-2 h-8 text-sm">
+                      <FileText className="w-3 h-3" />
+                      Create Note
+                    </Button>
+                    
+                    <Button variant="outline" className="w-full justify-start gap-2 h-8 text-sm">
+                      <UserPlus className="w-3 h-3" />
+                      Register Patient
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Recent Activity */}
+                <Card className="mt-4">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-base">Recent Activity</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="flex items-center gap-2 p-2 bg-accent rounded text-sm">
+                      <TestTube className="w-3 h-3 text-success" />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-xs truncate">Lab results for Priya Sharma</p>
+                        <p className="text-xs text-muted-foreground">2 min ago</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-accent rounded text-sm">
+                      <Users className="w-3 h-3 text-info" />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-xs truncate">Consultation completed</p>
+                        <p className="text-xs text-muted-foreground">15 min ago</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
         </main>
       </div>

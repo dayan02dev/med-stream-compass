@@ -25,60 +25,55 @@ export const AppHeader = ({
   doctorName = "Dr. Smith"
 }: AppHeaderProps) => {
   return (
-    <header className="h-header bg-card border-b border-border px-4 flex items-center justify-between shadow-healthcare-sm">
+    <header className="h-header bg-card border-b border-border px-3 sm:px-4 flex items-center justify-between">
       {/* Left Section */}
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">S</span>
-          </div>
-          <div>
-            <h1 className="font-semibold text-foreground">{facilityName}</h1>
-            <p className="text-xs text-muted-foreground">{location}</p>
-          </div>
+      <div className="flex items-center gap-2 sm:gap-3">
+        <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary rounded flex items-center justify-center">
+          <span className="text-primary-foreground font-bold text-xs sm:text-sm">S</span>
+        </div>
+        <div className="hidden sm:block">
+          <h1 className="font-medium text-sm text-foreground">{facilityName}</h1>
+          <p className="text-xs text-muted-foreground">{location}</p>
         </div>
       </div>
 
-      {/* Center Section */}
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="bg-primary-light text-primary">
-            My Queue: {queueCount}
-          </Badge>
-        </div>
+      {/* Center Section - Hidden on mobile */}
+      <div className="hidden md:flex items-center gap-3">
+        <Badge variant="secondary" className="bg-primary-light text-primary text-xs">
+          Queue: {queueCount}
+        </Badge>
         
-        {/* Quick Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground w-3 h-3" />
           <Input
-            placeholder="Search patient..."
-            className="pl-10 w-64"
+            placeholder="Search..."
+            className="pl-7 w-40 lg:w-48 h-8 text-sm"
           />
         </div>
       </div>
 
       {/* Right Section */}
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="sm" className="relative">
+      <div className="flex items-center gap-1 sm:gap-2">
+        <Button variant="ghost" size="sm" className="relative p-2">
           <Bell className="w-4 h-4" />
-          <Badge className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-danger text-danger-foreground text-xs flex items-center justify-center p-0">
+          <Badge className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-danger text-danger-foreground text-xs flex items-center justify-center p-0">
             3
           </Badge>
         </Button>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2">
-              <Avatar className="w-8 h-8">
+            <Button variant="ghost" className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2">
+              <Avatar className="w-6 h-6 sm:w-8 sm:h-8">
                 <AvatarImage src="/placeholder-doctor.jpg" />
-                <AvatarFallback className="bg-primary text-primary-foreground">
+                <AvatarFallback className="bg-primary text-primary-foreground text-xs">
                   {doctorName.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
-              <span className="font-medium">{doctorName}</span>
+              <span className="font-medium text-sm hidden sm:inline">{doctorName}</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-48">
             <DropdownMenuItem>
               <User className="w-4 h-4 mr-2" />
               Profile
