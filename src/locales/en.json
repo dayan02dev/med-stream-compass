@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "Home",
+    "records": "Records", 
+    "meds": "Medicines",
+    "appts": "Appointments",
+    "more": "More"
+  },
+  "actions": {
+    "continue": "Continue",
+    "listen": "Listen",
+    "share": "Share",
+    "book": "Book",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "retry": "Retry",
+    "skip": "Skip for now",
+    "takeMed": "Take now",
+    "reschedule": "Reschedule"
+  },
+  "home": {
+    "carePlan": "My Care Plan",
+    "today": "Today",
+    "quick": "Quick actions",
+    "emergency": "Emergency Info",
+    "nextSteps": "Next Steps",
+    "overdue": "You have a test due. Please book now.",
+    "checkIn": "Show Check-in QR",
+    "shareRecords": "Share Records"
+  },
+  "records": {
+    "all": "All",
+    "consultations": "Consultations", 
+    "labs": "Lab Tests",
+    "imaging": "Imaging",
+    "prescriptions": "Prescriptions",
+    "vaccines": "Vaccines",
+    "explain": "Explain",
+    "download": "Download PDF",
+    "highLab": "Your cholesterol is high. Please talk to your doctor."
+  },
+  "meds": {
+    "current": "Current Medicines",
+    "history": "Past Medicines", 
+    "schedule": "Medicine Schedule",
+    "refill": "Refill Soon",
+    "taken": "Taken",
+    "missed": "Missed",
+    "tip": "Take 1 tablet after food. Sit down if you feel dizzy.",
+    "morning": "Morning",
+    "noon": "Noon", 
+    "night": "Night",
+    "asNeeded": "As needed"
+  },
+  "appointments": {
+    "upcoming": "Upcoming",
+    "past": "Past Visits",
+    "bookNew": "Book New Appointment",
+    "checkIn": "Check-in QR",
+    "rate": "Rate Visit",
+    "facility": "Choose Hospital",
+    "doctor": "Choose Doctor",
+    "datetime": "Pick Date & Time"
+  },
+  "auth": {
+    "login": "Log In",
+    "register": "Create ID",
+    "phone": "Phone Number",
+    "otp": "Enter OTP",
+    "resend": "Resend OTP",
+    "scanQR": "Scan QR Code",
+    "biometric": "Use Fingerprint"
+  },
+  "settings": {
+    "profile": "Profile",
+    "language": "Language & Accessibility", 
+    "security": "Security",
+    "privacy": "Privacy",
+    "textSize": "Text Size",
+    "darkMode": "Dark Mode",
+    "highContrast": "High Contrast"
+  },
+  "privacy": {
+    "help": "You control who sees your records. You can stop sharing anytime.",
+    "activeConsents": "Active Permissions",
+    "revoke": "Stop Sharing",
+    "extend": "Allow More Time"
+  },
+  "voice": {
+    "disclaimer": "Not a substitute for a doctor.",
+    "holdToTalk": "Hold to talk",
+    "quickActions": "Quick Actions",
+    "myPrescriptions": "My Prescriptions",
+    "explainReport": "Explain Last Report"
+  },
+  "offline": {
+    "banner": "You are offline. Some features may not work.",
+    "lastSync": "Last synced",
+    "queuedActions": "Waiting to sync"
+  },
+  "emergency": {
+    "info": "Emergency Information",
+    "bloodType": "Blood Type",
+    "allergies": "Allergies", 
+    "conditions": "Medical Conditions",
+    "contacts": "Emergency Contacts",
+    "call": "Call"
+  }
+}
